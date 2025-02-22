@@ -1,0 +1,116 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      /** Text Gradient Example */
+      .name-heading {
+        color: #008080;
+        background-image: linear-gradient(
+          45deg,
+          #006280 20%,
+
+          #33cccc 53%,
+          #66e6e6 93%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      main {
+        font-family: "Fira Mono", monospace;
+      }
+      body {
+        /* background-image: url(./lot-of-trees.svg); */
+        background-size: 200%;
+        background-repeat: no-repeat;
+        background-position-y: 0vh;
+        min-height: 100vh;
+      }
+      p {
+        margin-top: 1rem;
+      }
+
+      .shaded-box {
+        position: relative;
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(172, 65, 65, 0.1);
+        overflow: hidden;
+      }
+
+      .shaded-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 0, 0, 0.1) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(0, 0, 0, 0.1) 50%,
+          rgba(0, 0, 0, 0.1) 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+      h2 {
+        font-family: "Spectral";
+      }
+    </style>
+  </head>
+  <body>
+    <!-- oak tree, benzene -->
+    <Header />
+    <main>
+      <div
+        style="display: flex; align-items: flex-end;"
+        class="h-40 inline-block mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-400 tracking-tight"
+      >
+        <!-- <img
+          id="notesvg"
+          src="./8thNote.svg"
+          class="size-14 xl:size-20 inline-block"
+          alt="8th Note"
+        /> -->
+        <h2 class="inline-block text-4xl">Hi, I am Akshat.</h2>
+      </div>
+
+      <p style="font-family: 'Fira Mono';">
+        <span class="inline-block animate-pulse">&gt;</span>
+        I explore compilers and the web of ideas.
+      </p>
+      <p>Currently working at AMD on the AMDGPU Compiler.</p>
+      <p>
+        I play the piano (regularly) and badminton (not so regularly anymore).
+        <br />
+        <!-- Used to write stories on Wattpad. -->
+      </p>
+      <br />
+      <h3 class="inline-block">Projects</h3>
+      <p>
+        Till I enumerate some of my projects here, take a look at my <a
+          href="https://github.com/optimisan"
+          target="_blank">GitHub</a
+        >.
+      </p>
+    </main>
+    <!-- <Footer /> -->
+  </body>
+</html>
+
+<script></script>
