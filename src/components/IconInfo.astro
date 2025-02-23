@@ -1,0 +1,19 @@
+---
+import FormattedDate from "./FormattedDate.astro"
+
+const { }
+---
+
+<p style="display: flex; align-items: center;">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"><path d="M400-280v-400l200 200-200 200Z"></path></svg
+  >
+  <span>
+    Published <em class="highlight">
+      <FormattedDate date={pubDate} />
+    </em>
+  </span>
+</p>

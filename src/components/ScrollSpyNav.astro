@@ -1,0 +1,20 @@
+---
+// Scroll spy will list all headings on the right side of the page.
+// It will highlight the heading that is currently in view.
+
+// src/components/ScrollSpyNav.astro
+---
+
+<aside class="scrollspy">
+  <nav>
+    <ul>
+      {
+        headings.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>

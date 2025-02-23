@@ -1,21 +1,59 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+import { render } from "astro:content";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import type { MarkdownHeading } from "astro";
+
+dayjs.extend(utc);
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, remarkPluginFrontmatter, headings } = await render(post);
+
+const field = remarkPluginFrontmatter.lastModified;
+const readingTime = remarkPluginFrontmatter.readingTime;
+const lastModified = dayjs(field).utc().toDate();
+
+// console.log(headings);
+console.log("lastModified", field);
+const postData = {
+  ...post.data,
+  updatedDate: lastModified,
+  readingTime: readingTime,
+};
+
+// function buildTOC(headings: MarkdownHeading[]) {
+//   console.log("building toc");
+//   // Heading = {depth: number, text: string, slug: string, subheading: [Heading]}
+//   // TOC = [Heading]
+//   type Heading = MarkdownHeading & { subheadings: Heading[] };
+//   const toc: Heading[] = [];
+//   const parentHeadings = new Map();
+//   headings.forEach((h) => {
+//     const heading = { ...h, subheadings: [] };
+//     parentHeadings.set(heading.depth, heading);
+//     if (heading.depth === 2) {
+//       toc.push(heading);
+//     } else {
+//       parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+//     }
+//   });
+//   return toc;
+// }
 ---
 
-<BlogPost {...post.data}>
-	<Content />
+<BlogPost {...postData} headings={headings}>
+  {lastModified} is the last modified time.
+  {readingTime} is the reading time.
+  <Content />
 </BlogPost>

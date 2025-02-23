@@ -1,0 +1,104 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type BaseProps<T> = {
+  toc: (T & {
+    depth: number;
+  })[];
+  as?: "bullet" | "number" | "menu";
+  depth?: number;
+  maxDepth?: number;
+  use: (props: any) => any;
+};
+
+type ClassicProps = BaseProps<MarkdownHeading>;
+
+type UseComponentProps = BaseProps<{
+  [key: string]: any;
+}>;
+
+export type Props = ClassicProps | UseComponentProps;
+
+const { toc, depth = 1, ...props } = Astro.props as Props;
+const {
+  as = "bullet",
+  use: Cmp,
+  maxDepth,
+  ...styleProps
+} = props; /* styleProps; `class` & `data-astro-cid-*` */
+
+const headings = toc.filter((it) => it.depth === depth);
+const Tag = "bullet" === as ? "ul" : "number" === as ? "ol" : "menu";
+---
+
+<Tag data-astro-toc={depth} {...depth === 1 ? styleProps : {}}>
+  {
+    headings.map((it, idx) => {
+      const nextHeading = headings[idx + 1];
+      const subHeadings = toc.slice(
+        (toc as any).indexOf(it) + 1,
+        nextHeading ? (toc as any).indexOf(nextHeading) : undefined
+      );
+      const shouldRenderSubHeadings = maxDepth
+        ? maxDepth > it.depth
+        : subHeadings.length > 0;
+
+      return (
+        <li data-astro-toc={depth}>
+          {Cmp ? (
+            <Cmp {...it} />
+          ) : it.slug ? (
+            <a href={`#${it.slug}`}>{it.text}</a>
+          ) : (
+            "placeholder"
+          )}
+          {shouldRenderSubHeadings && (
+            <Astro.self toc={subHeadings} depth={it.depth + 1} {...props} />
+          )}
+        </li>
+      );
+    })
+  }
+</Tag>
+
+<style>
+  @import url(../styles/vars.css);
+  /* select with attribute data-astro-toc */
+  [data-astro-toc] {
+    font-size: 1.52rem;
+    line-height: 1.5;
+  }
+  /* remove the default disc or other list prefixes for all */
+  /* do not use the data-astro-toc since this is already localised by astro */
+  ul,
+  ol,
+  menu {
+    list-style-type: none;
+  }
+  /* indent nested lists */
+  ul ul,
+  ol ol,
+  menu menu {
+    padding-inline-start: 1.5rem;
+    font-size: 1rem;
+  }
+  ul ul ul,
+  ol ol ol,
+  menu menu menu {
+    /* font-size: 0.8em; */
+  }
+  /* add a little space between the list items */
+  a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  a.active {
+    color: var(--accent);
+  }
+
+  /* add a little space between the list items */
+</style>

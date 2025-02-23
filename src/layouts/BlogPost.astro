@@ -4,86 +4,224 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import TOC from "../components/TOC.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  readingTime,
+  headings,
+} = Astro.props;
+
+const heroBackgroundImage = heroImage ?? "./wave.svg";
 ---
 
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <BaseHead title={title} description={description} />
-    <style>
+    <style define:vars={{ heroBackgroundImage: `"${heroBackgroundImage}"` }}>
+      body {
+        --left-margin: 15rem;
+        --right-toc-width: 42rem;
+        --content-inside-left-margin: 2rem;
+      }
       main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
+        /* width: var(--w-container); */
+        width: calc(100% - var(--left-margin));
+        margin-left: var(--left-margin);
+        display: flex;
       }
-      .hero-image {
+      @media screen and (max-width: 900px) {
+        main {
+          --left-margin: 2rem;
+        }
+      }
+
+      article {
+        width: calc(100% - var(--right-toc-width));
+        /* select direct child */
+        > * {
+          padding-left: var(--content-inside-left-margin);
+          padding-right: var(--content-inside-left-margin);
+        }
+        /* > h2 {
+          padding: 0;
+        } */
+      }
+      @media screen and (max-width: 900px) {
+        main {
+          flex-direction: column;
+        }
+        .left-sidebar {
+          display: none;
+        }
+      }
+      aside.scrollspy {
+        /* border: 1px solid; */
+
+        position: sticky;
+        font-family: "Fira Mono", monospace;
+        top: 0;
+        height: max-content;
+        overflow-y: auto;
+        padding-top: 3em;
+        padding-left: 6rem;
+        color: var(--text-muted);
+        flex: 0 0 var(--right-toc-width);
+      }
+      .toc-wrapper {
+        /* padding-right: 12rem; */
+        nav {
+          border: 1px solid orange;
+        }
+      }
+      aside.scrollspy h3 {
+        font-size: 1.4rem;
+        color: var(--text);
+        text-transform: uppercase;
+      }
+      a.active {
+        color: green;
+      }
+      .hero {
         width: 100%;
+        z-index: 10;
+        --dummy: url(var(--heroBackgroundImage));
+        background: url(/wave.svg) no-repeat center center;
+        background-size: cover;
+        /* align bottom-50px of background with bottom */
+        background-position: center bottom;
+        font-family: "Spectral", serif;
+
+        /* height: 50vh; */
+        .v-spacing {
+          height: 5rem;
+        }
+        .hero-content {
+          padding-bottom: 10rem;
+          width: calc(100% - 8% - var(--right-toc-width));
+          margin-left: calc(
+            var(--left-margin) + var(--content-inside-left-margin)
+          );
+          .info {
+            color: var(--text-muted);
+            font-size: 2.3rem;
+          }
+          h1 {
+            max-width: 68rem;
+            font-size: 6rem;
+            color: var(--text);
+            text-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+          }
+          p {
+            margin: 3px;
+          }
+          p:last-child {
+            margin-bottom: 1rem;
+          }
+          svg {
+            fill: var(--text-muted);
+            position: relative;
+            width: 1.2em;
+            display: none;
+          }
+          .small {
+            font-family: "Roboto Slab", monospace;
+            font-size: 0.7em;
+            .highlight {
+              color: var(--accent);
+            }
+          }
+        }
       }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
+      em {
+        font-style: normal;
       }
     </style>
   </head>
-
   <body>
     <Header />
-    <main>
-      <article>
-        <div class="hero-image">
-          {
-            heroImage && (
-              <img width={1020} height={510} src={heroImage} alt="" />
-            )
-          }
-        </div>
-        <div class="w-full prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1>{title}</h1>
-            <hr />
+    <div class="hero">
+      <div class="v-spacing"></div>
+      <div class="hero-content">
+        <h1>
+          {title}
+        </h1>
+        <div class="info">
+          <p>{description}</p>
+          <div class="small">
+            <p style="display: flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                ><path d="M400-280v-400l200 200-200 200Z"></path></svg
+              >
+              <span>
+                Published <em class="highlight">
+                  <FormattedDate date={pubDate} />
+                </em>
+                {" • " + readingTime}
+                {
+                  updatedDate !== null && (
+                    <span>
+                      {" "}
+                      • Updated{" "}
+                      <em class="highlight">
+                        {updatedDate}
+                        {/* <FormattedDate date={updatedDate} /> */}
+                      </em>
+                    </span>
+                  )
+                }
+              </span>
+            </p>
           </div>
-          <slot />
         </div>
+      </div>
+    </div>
+    <main>
+      <article class="content">
+        <slot />
       </article>
+      <aside id="toc" class="scrollspy">
+        <div class="toc-wrapper">
+          <!-- <nav>
+          <ul>
+            <li>
+              <a href="#headings">Headings</a>
+            </li>
+            <li>
+              <a href="#code-blocks">Output</a>
+            </li>
+          </ul>
+        </nav> -->
+          <TOC toc={headings} depth={2} />
+        </div>
+      </aside>
     </main>
-    <Footer />
   </body>
 </html>
+
+<script>
+  import scrollSpy from "simple-scrollspy";
+
+  const options = {
+    sectionClass: "h1, h2, h3, h4, h5, h6", // Query selector to your sections
+    menuActiveTarget: "li > a", // Query selector to your elements that will be added `active` class
+    offset: 100, // Menu item will active before scroll to a matched section 100px
+    // scrollContainer: ".scroll-container", // Listen scroll behavior on `.scroll-container` instead of `window`
+    onActive: (el) => {
+      // Do something when a menu item is active
+      console.log("onActive", el);
+      el.classList.add("active");
+    },
+  };
+
+  console.log("options TOC", options);
+
+  // init:
+  scrollSpy("#toc", options);
+</script>
