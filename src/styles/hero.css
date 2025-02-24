@@ -1,0 +1,79 @@
+.hero {
+  width: 100%;
+  z-index: 10;
+  /* background: url(/slant-wave.svg) no-repeat center center; */
+  background-size: cover;
+  /* align bottom-50px of background with bottom */
+  background-position: right 50%;
+  font-family: "Spectral", serif;
+  margin-bottom: -5rem;
+  @media screen and (max-width: 900px) {
+    margin-bottom: -10rem;
+  }
+
+  .background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40rem;
+    z-index: -1;
+    img {
+      max-height: 100%;
+      width: 100%;
+    }
+  }
+  .v-spacing {
+    height: 5rem;
+  }
+  .hero-content {
+    padding-bottom: 8rem;
+    width: calc(100% - 8% - var(--right-toc-width));
+    margin-left: calc(var(--left-margin) + var(--content-inside-left-margin));
+    @media screen and (max-width: 1000px) {
+      width: calc(100% - 8%);
+    }
+    .info {
+      color: var(--text-muted);
+      font-size: 2.3rem;
+    }
+    h1 {
+      max-width: 68rem;
+      color: var(--text);
+      text-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    }
+    p {
+      margin: 3px;
+    }
+    p:last-child {
+      margin-bottom: 1rem;
+    }
+    svg {
+      fill: var(--text-muted);
+      position: relative;
+      width: 1.2em;
+      /* display: none; */
+    }
+    .small {
+      font-family: "Roboto Slab", monospace;
+      font-size: 0.7em;
+    }
+  }
+}
+.highlight {
+  color: var(--text);
+}
+em {
+  font-style: normal;
+}
+.icon-info {
+  display: flex;
+  /* color: var(--accent); */
+  /* gap between items is 3px */
+  margin-top: 0.5rem;
+  gap: 3px;
+  align-items: center;
+  .highlight {
+    color: var(--accent);
+  }
+}

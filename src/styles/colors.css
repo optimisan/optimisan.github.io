@@ -237,6 +237,7 @@
   --accent-50: #0f0911;
   --accent-100: #1d1122;
   --accent-200: #3a2343;
+  --accent-200: #511988;
   --accent-300: #573465;
   --accent-400: #744587;
   --accent-500: #9157a8;
@@ -261,6 +262,7 @@
   --text-soft: rgb(210, 208, 208);
   --text-muted: rgb(161, 161, 161);
   --background: #001111;
+  --background-code: #33293bc0;
   --background-soft: #353535;
   --primary: #a4d0c8;
   --secondary: #22c2aa;
@@ -272,4 +274,26 @@
   --syntax-keyword: #c678dd;
   --syntax-function: #61afef;
   --syntax-comment: #393e47;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #8f54a0 #090101;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #090101;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #8f54a0;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
 }

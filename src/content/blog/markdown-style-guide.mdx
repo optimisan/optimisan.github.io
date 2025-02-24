@@ -6,7 +6,7 @@ heroImage: "/blog-placeholder-1.jpg"
 tags: ["markdown", "syntax"]
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+Some other text here.
 
 ## Headings
 
@@ -48,6 +48,21 @@ The blockquote element represents content that is quoted from another source, op
 
 ### Blockquote without attribution
 
+{/* <!-- Syntax highlight some JavaScript code. --> */}
+import { Code } from 'astro:components';
+
+<Code code={`const foo = 'bar';`} lang="js" />
+{/* <!-- Optional: Customize your theme. --> */}
+<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
+{/* <!-- Optional: Enable word wrapping. --> */}
+<Code code={`const foo = 'bar';`} lang="js" wrap />
+{/* <!-- Optional: Output inline code. --> */}
+<p>
+  <Code code={`const foo = 'bar';`} lang="js" inline />
+  will be rendered inline.
+</p>
+{/* <!-- Optional: defaultColor --> */}
+<Code code={`const foo = 'bar';`} lang="js" defaultColor={false} />
 #### Syntax
 
 ```markdown
@@ -98,7 +113,7 @@ The blockquote element represents content that is quoted from another source, op
 
 we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
 
-````markdown
+````markdown title="something.md"
 ```html
 <!DOCTYPE html>
 <html lang="en">

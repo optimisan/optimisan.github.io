@@ -2,6 +2,10 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import "../../../styles/hero.css";
+import PostsCard from "../../../components/PostsCard.astro";
 
 // return type is GetStaticPathsResult
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -23,15 +27,44 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<BaseLayout title={`Tag: ${tag}`}>
-  <h1>Tag: {tag}</h1>
-  <ul>
-    {
-      posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}`}>{post.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
-</BaseLayout>
+<html data-theme="dark">
+  <head>
+    <BaseHead title={`Tag: ${tag}`} description={"Tag notes"} />
+    <style>
+      h1 {
+        color: var(--text);
+      }
+      .list {
+        /* max-width: 900px; */
+      }
+      /* main {
+        width: 100vw;
+      } */
+      img {
+        max-height: 100vh !important;
+        filter: brightness(0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <!-- <img src="/tag-dark.svg" /> -->
+      <div class="hero">
+        <div class="background-img">
+          <img src="/tag-dark.svg" alt="tab" />
+        </div>
+        <div class="v-spacing"></div>
+        <div class="hero-content">
+          <h1>
+            Tag: {tag}
+          </h1>
+          <div class="info"></div>
+        </div>
+      </div>
+      <div class="list">
+        {posts.map((post) => <PostsCard post={post} />)}
+      </div>
+    </main>
+  </body>
+</html>
