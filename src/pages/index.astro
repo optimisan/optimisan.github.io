@@ -15,10 +15,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
         color: #008080;
         background-image: linear-gradient(
           45deg,
-          #006280 20%,
+          #9153d4 20%,
 
-          #33cccc 53%,
-          #66e6e6 93%
+          #5e77e6 53%,
+          #79c3c3 93%
         );
         background-clip: text;
         -webkit-background-clip: text;
@@ -72,6 +72,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
       h2 {
         font-family: "Spectral";
       }
+      .animate-pulse {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
     </style>
   </head>
   <body>
@@ -88,7 +102,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
           class="size-14 xl:size-20 inline-block"
           alt="8th Note"
         /> -->
-        <h2 class="inline-block text-4xl">Hi, I am Akshat.</h2>
+        <h2 class="name-heading inline-block text-4xl">Hi, I am Akshat.</h2>
       </div>
 
       <p style="font-family: 'Fira Mono';">

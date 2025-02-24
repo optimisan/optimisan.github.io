@@ -1,50 +1,133 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import Menu from "./Menu.astro";
 ---
 
 <header>
   <nav>
-    <div class="project-path">
-      <!-- <span class="separator">../</span> -->
-      <span class="namespace">universe</span>
-      <span class="separator">/</span>
-      <span class="repo">optimisan</span>
+    <a style="text-decoration: none; color: unset;" href="/">
+      <div class="project-path">
+        <!-- <span class="separator">../</span> -->
+        <span class="namespace">universe</span>
+        <span class="separator">/</span>
+        <span class="repo">optimisan</span>
+      </div>
+    </a>
+    <div class="flexible-space"></div>
+    <div
+      class="menu-toggle"
+      onclick="document.querySelector('.mobile-overlay').classList.toggle('open')"
+    >
+      <!-- <input type="checkbox" /> -->
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-    <div class="social-links">
-      <a
-        href="https://github.com/optimisan"
-        target="_blank"
-        class="github-link"
-      >
-        <span class="sr-only">View source on GitHub</span>
-        <svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20"
-          ><path
-            fill="currentColor"
-            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-          ></path></svg
+    <div class="right mobile">
+      <div class="links">
+        <a href="/blog">Blog</a>
+      </div>
+      <div class="social-links">
+        <a
+          href="https://github.com/optimisan"
+          target="_blank"
+          class="github-link"
         >
-      </a>
+          <span class="sr-only">View source on GitHub</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20"
+            ><path
+              fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            ></path></svg
+          >
+        </a>
+      </div>
     </div>
   </nav>
 </header>
+<div class="mobile-overlay">
+  <div
+    class="menu-toggle open"
+    onclick="document.querySelector('.mobile-overlay').classList.toggle('open')"
+  >
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav style="display: flex; flex-direction: column;">
+    <div class="links">
+      <div class="info">Links</div>
+      <a href="/blog">Blog</a>
+      <a href="/">Home</a>
+    </div>
+    <div class="links social">
+      <div class="info">Social</div>
+      <a href="https://github.com/optimisan" target="_blank">GitHub</a>
+    </div>
+  </nav>
+</div>
+
 <style>
+  .mobile-overlay {
+    display: none;
+
+    .menu-toggle {
+      position: absolute;
+      top: 10px;
+      right: 2rem;
+      height: 2.4rem;
+      input {
+        & ~ span:nth-last-child(3) {
+          opacity: 1;
+          transform: rotate(-45deg) translate(-2px, -1px);
+        }
+        & ~ span:nth-last-child(2) {
+          opacity: 0;
+          transform: rotate(0deg) scale(0.2);
+        }
+        & ~ span:nth-last-child(1) {
+          transform: rotate(45deg) translate(4px, 5px);
+        }
+      }
+    }
+  }
+  a {
+    color: var(--text-soft);
+    text-decoration: none;
+    &:hover:not(.social-links a) {
+      color: var(--text);
+      cursor: pointer;
+      border-bottom: 1px dashed;
+    }
+  }
+  .flexible-space {
+    flex: 1;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+  }
   header {
     margin: 0;
     padding: 0 1em;
     box-shadow: var(--box-shadow);
     backdrop-filter: blur(7px);
+    font-family: "Fira Mono", monospace;
     height: 48px;
     display: flex;
     align-items: center;
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   nav {
     width: 100%;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 2.4rem;
   }
 
   .project-path {
@@ -52,7 +135,7 @@ import { SITE_TITLE } from "../consts";
     align-items: center;
     gap: 4px;
     font-family: "Fira Mono", monospace;
-    font-size: 0.9em;
+    /* font-size: 20px; */
   }
 
   .namespace {
@@ -70,6 +153,9 @@ import { SITE_TITLE } from "../consts";
   .social-links {
     display: flex;
     align-items: center;
+    border-left: 1px dotted var(--text-soft);
+    padding-left: 1rem;
+    margin-left: 1.5rem;
   }
 
   .github-link {
@@ -79,5 +165,118 @@ import { SITE_TITLE } from "../consts";
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
+  }
+  .menu-toggle {
+    display: none;
+    z-index: 99;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .mobile-overlay.open {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 3rem;
+      font-size: 2.7rem;
+      top: 0;
+      z-index: 3;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.3);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(10px);
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        margin-top: 8rem;
+        padding-top: 2rem;
+        padding-left: 3rem;
+        .info {
+          font-size: 1.5rem;
+          position: absolute;
+          top: 2rem;
+          left: 2rem;
+        }
+        a {
+          /* padding: 1rem; */
+          /* margin: 0.8rem; */
+          /* margin: 1rem; */
+          padding: 0 3rem;
+          margin: 2.8rem 0;
+          &:not(:last-child) {
+            border-right: 1px solid var(--text-soft);
+          }
+        }
+      }
+    }
+    .right {
+      display: none;
+    }
+
+    .mobile:not(.open) {
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      /* top: 25px; */
+      /* left: 25px; */
+      z-index: 100;
+      -webkit-user-select: none;
+      user-select: none;
+      justify-content: space-around;
+      align-items: center;
+
+      span {
+        display: flex;
+        width: 29px;
+        height: 2px;
+        /* margin-bottom: 5px; */
+        position: relative;
+        background: var(--text);
+        border-radius: 3px;
+        z-index: 1;
+        transform-origin: 100% 0;
+        transition:
+          transform 0.5s ease-in-out,
+          opacity 0.6s ease;
+        &:last-child {
+          transform-origin: 100% 0;
+        }
+      }
+
+      input {
+        display: flex;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 2;
+        &:checked {
+          & ~ span:nth-last-child(3) {
+            opacity: 1;
+            transform: rotate(-45deg) translate(-2px, -1px);
+          }
+          & ~ span:nth-last-child(2) {
+            opacity: 0;
+            transform: rotate(0deg) scale(0.2);
+          }
+          & ~ span:nth-last-child(1) {
+            transform: rotate(45deg) translate(4px, 5px);
+          }
+        }
+      }
+    }
+    .menu-toggle span:first-child {
+      transform-origin: 0 0;
+    }
   }
 </style>

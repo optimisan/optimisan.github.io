@@ -19,6 +19,17 @@ const {
 } = Astro.props;
 
 const heroBackgroundImage = heroImage ?? "./wave.svg";
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+const showUpdated =
+  updatedDate && formatDate(updatedDate) !== formatDate(pubDate);
 ---
 
 <html lang="en" data-theme="dark">
@@ -29,6 +40,36 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
         --left-margin: 15rem;
         --right-toc-width: 42rem;
         --content-inside-left-margin: 2rem;
+      }
+      @media screen and (min-width: 1700px) {
+        body {
+          --left-margin: 22rem;
+          --right-toc-width: 60rem;
+        }
+      }
+      @media screen and (max-width: 1500px) {
+        body {
+          --left-margin: 15rem;
+          --right-toc-width: 45rem;
+        }
+      }
+      @media screen and (max-width: 1280px) {
+        body {
+          --left-margin: 9rem;
+          --right-toc-width: 30rem;
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        body {
+          --left-margin: 4rem;
+          --right-toc-width: 30rem;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        body {
+          --left-margin: 2rem;
+          --right-toc-width: 0;
+        }
       }
       main {
         /* width: var(--w-container); */
@@ -63,7 +104,6 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
       }
       aside.scrollspy {
         /* border: 1px solid; */
-
         position: sticky;
         font-family: "Fira Mono", monospace;
         top: 0;
@@ -71,6 +111,7 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
         overflow-y: auto;
         padding-top: 3em;
         padding-left: 6rem;
+        padding-right: 2rem;
         color: var(--text-muted);
         flex: 0 0 var(--right-toc-width);
       }
@@ -92,29 +133,48 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
         width: 100%;
         z-index: 10;
         --dummy: url(var(--heroBackgroundImage));
-        background: url(/wave.svg) no-repeat center center;
+        /* background: url(/slant-wave.svg) no-repeat center center; */
         background-size: cover;
         /* align bottom-50px of background with bottom */
-        background-position: center bottom;
+        background-position: right 50%;
         font-family: "Spectral", serif;
-
+        .background-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 40rem;
+          z-index: -1;
+          img {
+            max-height: 100%;
+            width: 100%;
+            /* width: 100%;
+            height: 120%;
+            width: 1000px;
+            height: auto;
+            position: absolute;
+            /* bottom: 50%; */
+          }
+        }
         /* height: 50vh; */
         .v-spacing {
           height: 5rem;
         }
         .hero-content {
-          padding-bottom: 10rem;
+          padding-bottom: 12rem;
           width: calc(100% - 8% - var(--right-toc-width));
           margin-left: calc(
             var(--left-margin) + var(--content-inside-left-margin)
           );
+          @media screen and (max-width: 1000px) {
+            width: calc(100% - 8%);
+          }
           .info {
             color: var(--text-muted);
             font-size: 2.3rem;
           }
           h1 {
             max-width: 68rem;
-            font-size: 6rem;
             color: var(--text);
             text-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
           }
@@ -128,25 +188,38 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
             fill: var(--text-muted);
             position: relative;
             width: 1.2em;
-            display: none;
+            /* display: none; */
           }
           .small {
             font-family: "Roboto Slab", monospace;
             font-size: 0.7em;
-            .highlight {
-              color: var(--accent);
-            }
           }
         }
       }
+      .highlight {
+        color: var(--text);
+      }
       em {
         font-style: normal;
+      }
+      .icon-info {
+        display: flex;
+        /* color: var(--accent); */
+        /* gap between items is 3px */
+        gap: 3px;
+        align-items: center;
+        .highlight {
+          color: var(--accent);
+        }
       }
     </style>
   </head>
   <body>
     <Header />
     <div class="hero">
+      <div class="background-img">
+        <img src="/slant-wave.svg" alt="" />
+      </div>
       <div class="v-spacing"></div>
       <div class="hero-content">
         <h1>
@@ -156,22 +229,27 @@ const heroBackgroundImage = heroImage ?? "./wave.svg";
           <p>{description}</p>
           <div class="small">
             <p style="display: flex; align-items: center;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
                 ><path d="M400-280v-400l200 200-200 200Z"></path></svg
-              >
+              > -->
               <span>
                 Published <em class="highlight">
                   <FormattedDate date={pubDate} />
                 </em>
                 {" • " + readingTime}
                 {
-                  updatedDate !== null && (
-                    <span>
+                  showUpdated && (
+                    <span class="icon-info">
                       {" "}
-                      • Updated{" "}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 -960 960 960"
+                      >
+                        <path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-94h80v240H600v-80h110q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q105 0 183.5-68T756-440h82q-15 137-117.5 228.5T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
+                      </svg>
+                      Updated{" "}
                       <em class="highlight">
-                        {updatedDate}
-                        {/* <FormattedDate date={updatedDate} /> */}
+                        <FormattedDate date={updatedDate} />
                       </em>
                     </span>
                   )

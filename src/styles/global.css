@@ -35,7 +35,13 @@
 }
 
 :root {
-  font-size: 10px;
+  /* font-size: 10px; */
+  /* slope = (maxFont - minFont) / (maxWidth - minWidth) */
+  /* preferred = yAxisIntersection + (slope*100)[vw] */
+  /* see https://fluid.style */
+  /* values used are 8px-400px(width)-10px-1600px */
+  font-size: clamp(8px, 7.333px + 0.167vw, 10px);
+  /* font-size: 10px; */
   --text: var(--text-soft);
   width: 100%;
   /* do not scroll off to the side */
@@ -52,7 +58,7 @@ body {
   /* background-size: 100% 600px; */
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--text-soft);
   line-height: 1.6;
 }
@@ -63,13 +69,16 @@ main {
   margin: auto;
   padding: 3em 1em;
 }
+article > * {
+  margin-bottom: 1.4rem;
+}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1.6rem 0;
   /* color: rgb(var(--black)); */
   line-height: 1.2;
   /* font-family: "Spectral", monospace; */
@@ -77,16 +86,16 @@ h6 {
   color: var(--text-muted);
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 6rem;
   color: var(--accent-600);
 }
 h2 {
-  font-size: 2.041em;
-  color: var(--accent);
+  font-size: 1.9em;
+  color: var(--accent-700);
 }
 h3 {
   font-size: 1.553em;
-  color: var(--text);
+  color: var(--text-soft);
 }
 h4 {
   font-size: 1.563em;
@@ -99,7 +108,7 @@ b {
   font-weight: 700;
 }
 a {
-  color: var(--accent);
+  color: var(--accent-700);
   text-decoration: underline;
 }
 a:hover {
@@ -113,7 +122,6 @@ p {
 }
 textarea {
   width: 100%;
-  font-size: 16px;
 }
 input {
   font-size: 16px;
@@ -128,33 +136,30 @@ img {
 }
 code {
   padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
+  /* background-color: var(--background-soft); */
+  background: transparent !important;
   border-radius: 2px;
 }
 pre {
   padding: 1.5em;
   border-radius: 8px;
+  font-size: 0.8em;
+  margin: 1em 0;
+  background: transparent !important;
+  border: 1px solid var(--text-muted);
 }
 pre > code {
   all: unset;
 }
 blockquote {
   border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
+  padding: 0 0 0 10px;
+  margin: 0 0 0 10px;
+  /* font-size: 1.333em; */
 }
 hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-  body {
-    font-size: 0.8rem;
-  }
-  main {
-    padding: 1em;
-  }
 }
 
 .sr-only {
@@ -173,4 +178,12 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+table {
+  margin: 2em 0;
+}
+
+.hidden {
+  display: none;
 }

@@ -254,12 +254,14 @@
   --primary: #2f5b53;
   --secondary: #7de3d4;
   --accent: #7d4b91;
+  --background-soft: #dfdfdf;
 }
 :root[data-theme="dark"] {
   --text: #eef6f5;
   --text-soft: rgb(210, 208, 208);
   --text-muted: rgb(161, 161, 161);
   --background: #001111;
+  --background-soft: #353535;
   --primary: #a4d0c8;
   --secondary: #22c2aa;
   --accent: #ca8de2;
