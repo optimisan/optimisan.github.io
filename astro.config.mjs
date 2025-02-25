@@ -9,6 +9,8 @@ import { remarkModifiedTime } from './remark-modified-time.mjs';
 import { remarkReadingTime } from './remark-reading-time.mjs';
 
 import expressiveCode from 'astro-expressive-code';
+// import remarkCallout from '@r4ai/remark-callout';
+import remarkCallout from 'remark-callout';
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,6 +23,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
-    remarkPlugins: [remarkModifiedTime, remarkReadingTime],
+    remarkPlugins: [remarkModifiedTime, remarkReadingTime, remarkCallout],
   },
 });

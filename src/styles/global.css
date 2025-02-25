@@ -27,6 +27,7 @@
 } */
 
 @import url(./vars.css);
+@import url(./callout.css);
 
 * {
   margin: 0;
@@ -158,11 +159,70 @@ pre {
 pre > code {
   all: unset;
 }
-blockquote {
+blockquote:not(.callout) {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 10px;
   margin: 0 0 0 10px;
   /* font-size: 1.333em; */
+}
+blockquote.callout {
+  display: flex;
+  flex-direction: column;
+  /* streetch elements */
+  justify-content: stretch;
+  padding: 0;
+  &,
+  & > * {
+    border-radius: 10px;
+  }
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  border: 2px solid var(--text-muted);
+  color: rgb(203, 203, 203);
+  &.note {
+    .callout-title {
+      background-color: rgb(24, 65, 101);
+    }
+  }
+  &.tip {
+    .callout-title {
+      background-color: rgb(8, 101, 8);
+    }
+  }
+  &.warning {
+    .callout-title {
+      background-color: rgb(104, 15, 32);
+    }
+  }
+  &.info {
+    .callout-title {
+      background-color: rgb(89, 96, 23);
+    }
+  }
+  &.success {
+    .callout-title {
+      background-color: rgb(13, 84, 22);
+    }
+  }
+  .callout-content {
+    padding: 1.4rem;
+  }
+  .callout-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1.2rem;
+    background: var(--background-code);
+  }
+  .callout-icon {
+    svg {
+      width: 2.5rem;
+      height: 3rem;
+    }
+  }
 }
 hr {
   border: none;
