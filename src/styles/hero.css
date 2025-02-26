@@ -77,3 +77,28 @@ em {
     color: var(--accent);
   }
 }
+
+:root[data-theme="light"] {
+  /* background-img should disapper in light mode */
+  .background-img {
+    display: none !important;
+  }
+  .hero {
+    /* background: url(/light-wave.svg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(208, 183, 215);
+    clip-path: polygon(
+      0% 88%,
+      6% 94%,
+      32% 84%,
+      53% 90%,
+      68% 76%,
+      88% 74%,
+      93% 28%,
+      90% 3%,
+      0% 1%,
+      1% 32%
+    );
+  }
+}

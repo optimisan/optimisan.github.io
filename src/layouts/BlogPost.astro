@@ -44,26 +44,26 @@ const showUpdated =
       }
       @media screen and (min-width: 1700px) {
         body {
-          --left-margin: 22rem;
+          --left-margin: 27rem;
           --right-toc-width: 60rem;
         }
       }
       @media screen and (max-width: 1500px) {
         body {
-          --left-margin: 15rem;
+          --left-margin: 18rem;
           --right-toc-width: 45rem;
         }
       }
       @media screen and (max-width: 1280px) {
         body {
           --left-margin: 9rem;
-          --right-toc-width: 30rem;
+          --right-toc-width: 45rem;
         }
       }
       @media screen and (max-width: 1000px) {
         body {
           --left-margin: 4rem;
-          --right-toc-width: 30rem;
+          --right-toc-width: 40rem;
         }
       }
       @media screen and (max-width: 900px) {
@@ -79,7 +79,7 @@ const showUpdated =
         }
       }
       main {
-        width: calc(100% - var(--left-margin));
+        width: calc(100% - 1.4 * var(--left-margin));
         margin-left: var(--left-margin);
         display: flex;
         @media screen and (max-width: 900px) {
@@ -93,12 +93,22 @@ const showUpdated =
           }
         }
       }
+
       article {
         width: calc(100% - var(--right-toc-width));
+        max-width: 800px;
+        @media screen and (min-width: 1340px) {
+          margin-right: clamp(80px, -6.452px + 6.452vw, 100px);
+        }
         /* select direct child */
-        > * {
-          /* padding-left: var(--content-inside-left-margin);
-          padding-right: var(--content-inside-left-margin); */
+        ul,
+        ol {
+          list-style-type: disc;
+          margin-left: 1rem;
+          padding-left: 2rem;
+        }
+        ol {
+          list-style-type: decimal;
         }
         /* > h2 {
           padding: 0;
@@ -120,6 +130,11 @@ const showUpdated =
       }
       .toc-wrapper {
         /* padding-right: 12rem; */
+        padding: 2rem 2.4rem;
+        border-radius: 1.6rem;
+        max-width: 400px;
+        margin-left: 5rem;
+        background: var(--background-soft);
         nav {
           border: 1px solid orange;
         }

@@ -31,41 +31,47 @@ const headings = toc.filter((it) => it.depth === depth);
 const Tag = "bullet" === as ? "ul" : "number" === as ? "ol" : "menu";
 ---
 
-<Tag data-astro-toc={depth} {...depth === 1 ? styleProps : {}}>
-  {
-    headings.map((it, idx) => {
-      const nextHeading = headings[idx + 1];
-      const subHeadings = toc.slice(
-        (toc as any).indexOf(it) + 1,
-        nextHeading ? (toc as any).indexOf(nextHeading) : undefined
-      );
-      const shouldRenderSubHeadings = maxDepth
-        ? maxDepth > it.depth
-        : subHeadings.length > 0;
+<div class="toc-container">
+  <Tag
+    class="toc-list"
+    data-astro-toc={depth}
+    {...depth === 1 ? styleProps : {}}
+  >
+    {
+      headings.map((it, idx) => {
+        const nextHeading = headings[idx + 1];
+        const subHeadings = toc.slice(
+          (toc as any).indexOf(it) + 1,
+          nextHeading ? (toc as any).indexOf(nextHeading) : undefined
+        );
+        const shouldRenderSubHeadings = maxDepth
+          ? maxDepth > it.depth
+          : subHeadings.length > 0;
 
-      return (
-        <li data-astro-toc={depth}>
-          {Cmp ? (
-            <Cmp {...it} />
-          ) : it.slug ? (
-            <a href={`#${it.slug}`}>{it.text}</a>
-          ) : (
-            "placeholder"
-          )}
-          {shouldRenderSubHeadings && (
-            <Astro.self toc={subHeadings} depth={it.depth + 1} {...props} />
-          )}
-        </li>
-      );
-    })
-  }
-</Tag>
-
+        return (
+          <li data-astro-toc={depth}>
+            {Cmp ? (
+              <Cmp {...it} />
+            ) : it.slug ? (
+              <a href={`#${it.slug}`}>{it.text}</a>
+            ) : (
+              "placeholder"
+            )}
+            {shouldRenderSubHeadings && (
+              <Astro.self toc={subHeadings} depth={it.depth + 1} {...props} />
+            )}
+          </li>
+        );
+      })
+    }
+  </Tag>
+</div>
 <style>
   @import url(../styles/vars.css);
+
   /* select with attribute data-astro-toc */
   [data-astro-toc] {
-    font-size: 1.52rem;
+    font-size: 1.8rem;
     line-height: 1.5;
   }
   /* remove the default disc or other list prefixes for all */
@@ -73,14 +79,18 @@ const Tag = "bullet" === as ? "ul" : "number" === as ? "ol" : "menu";
   ul,
   ol,
   menu {
-    list-style-type: none;
+    &.toc-list {
+      list-style-type: none;
+    }
   }
   /* indent nested lists */
   ul ul,
   ol ol,
   menu menu {
-    padding-inline-start: 1.5rem;
-    font-size: 1rem;
+    &.toc-list {
+      padding-inline-start: 1.5rem;
+      font-size: 1rem;
+    }
   }
   ul ul ul,
   ol ol ol,
@@ -98,6 +108,9 @@ const Tag = "bullet" === as ? "ul" : "number" === as ? "ol" : "menu";
   }
   a.active {
     color: var(--accent);
+    border-left: 1px solid;
+    padding-left: 9px;
+    margin-left: -9px;
   }
 
   /* add a little space between the list items */

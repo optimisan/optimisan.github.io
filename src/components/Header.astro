@@ -4,6 +4,20 @@ import { SITE_TITLE } from "../consts";
 import Menu from "./Menu.astro";
 ---
 
+<script>
+  import updateColorTheme from "../scripts/dark-mode.mjs";
+  document
+    .querySelector("#dark-mode-toggle")
+    ?.addEventListener("click", (e) => {
+      const newTheme =
+        document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      updateColorTheme(newTheme);
+      // e.currentTarget!.querySelector("img").src =
+      // document.documentElement.dataset.theme === "dark"
+      // ? "/light-mode.svg"
+      // : "/dark-mode.svg";
+    });
+</script>
 <header style="z-index: 100">
   <nav>
     <a style="text-decoration: none; color: unset;" href="/">
@@ -15,7 +29,9 @@ import Menu from "./Menu.astro";
       </div>
     </a>
     <div class="flexible-space"></div>
-
+    <button id="dark-mode-toggle">
+      <img src="/dark-mode.svg" alt="Toggle theme" />
+    </button>
     <button
       onclick="document.querySelectorAll('.mobile-overlay, .hamburger').forEach(e => e.classList.toggle('is-active'))"
       class="hamburger hamburger--collapse-r"
@@ -96,6 +112,7 @@ import Menu from "./Menu.astro";
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
     height: 2.4rem;
   }
 

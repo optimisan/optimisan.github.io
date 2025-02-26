@@ -8,24 +8,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 
-/* :root {
-  --accent: #54a096;
-  --accent-dark: #000d8a;
-  --bg-primary: rgb(14, 5, 15);
-  --black: 15, 18, 25;
-  --gray: rgb(194, 194, 194);
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
-  --syntax-string: #98c379;
-  --syntax-number: #d19a66;
-  --syntax-keyword: #c678dd;
-  --syntax-function: #61afef;
-  --syntax-comment: #393e47;
-  --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
-    0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
-} */
-
 @import url(./vars.css);
 @import url(./callout.css);
 
@@ -41,7 +23,7 @@
   /* preferred = yAxisIntersection + (slope*100)[vw] */
   /* see https://fluid.style */
   /* values used are 8px-400px(width)-10px-1600px */
-  font-size: clamp(9px, 8.667px + 0.083vw, 10px);
+  font-size: clamp(9px, 8.767px + 0.058vw, 9.5px);
   /* font-size: 10px; */
   --text: var(--text-soft);
   width: 100%;
@@ -149,12 +131,18 @@ pre {
   border-radius: 8px;
   /* font-size: 0.8em; */
   margin: 1em 0;
-  background: var(--background-code) !important;
+  /* background: var(--background-code) !important; */
   /* border: 1px solid var(--text-muted); */
 }
 .expressive-code {
   --ec-uiFontSize: 1.6rem;
   --ec-codeFontSize: 1.7rem;
+  .copy button {
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 0.6rem !important;
+    padding: 7px !important;
+  }
 }
 pre > code {
   all: unset;
@@ -253,4 +241,9 @@ table {
 
 .hidden {
   display: none;
+}
+button {
+  &:hover {
+    cursor: pointer;
+  }
 }
