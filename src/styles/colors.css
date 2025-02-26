@@ -251,9 +251,10 @@
 :root[data-theme="light"] {
   --text: #091110;
   --text-soft: rgb(18, 18, 18);
+  --text-muted: rgb(18, 18, 18);
   --background: #f8fcfb;
   --primary: #2f5b53;
-  --secondary: #7de3d4;
+  --secondary: #136a5d;
   --accent: #c109b2;
   --background-soft: #dfdfdf;
 

@@ -22,10 +22,12 @@ const { Content, remarkPluginFrontmatter, headings } = await render(post);
 
 const field = remarkPluginFrontmatter.lastModified;
 const readingTime = remarkPluginFrontmatter.readingTime;
-const lastModified = dayjs(field).utc().toDate();
+console.log(field, "field");
+let lastModified = null;
+if (field != "") lastModified = dayjs(field).utc().toDate();
 
 // console.log(headings);
-console.log("lastModified", field);
+console.log("lastModified", lastModified);
 const postData = {
   ...post.data,
   updatedDate: lastModified,
