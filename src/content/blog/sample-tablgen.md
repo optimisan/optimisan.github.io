@@ -3,6 +3,7 @@ title: A Quick Tutorial on LLVM TableGen
 description: A quick tutorial on LLVM TableGen, a powerful tool for defining and managing the structures of code in LLVM, such as instruction sets, registers, and targets.
 pubDate: "Feb 26, 2025"
 tags: [LLVM, TableGen, LLVM Backend, LLVM Tutorial]
+draft: true
 ---
 
 ## A Quick Tutorial on LLVM TableGen
