@@ -20,7 +20,7 @@ I talked about the new pass manager and how `llc` is finally migrating away from
 
 ## Other talks
 
-I was the youngest speaker of the day, and most of the other people had more experience working in the field than I am old! There were a lot of interesting topics covered, among which I found NVIDIA's and TCS's talks particularly memorable.
+I was the youngest speaker of the day, and most of the other people have spent more time working in the field than I have spent living! There were a lot of interesting topics covered, among which I found NVIDIA's and TCS's talks particularly memorable.
 
 With code analysis and LLMs, they convert code to working documentation of a system. For example, consider a system for ordering food at the cafeteria. The documentation would include the steps to be followed by a customer at the ticket machine, with rules like "only employees can access this discount" or "start ticketing after 10 AM". Sometimes documentation like this is incomplete and they generate it from the code of the ticket machine, for example.
 
