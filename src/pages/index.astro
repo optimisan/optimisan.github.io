@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ExperienceCard from "../components/ExperienceCard.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
@@ -12,6 +13,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
     <style>
       /** Text Gradient Example */
       .name-heading {
+        font-size: 6rem;
         color: #008080;
         background-image: linear-gradient(
           45deg,
@@ -106,6 +108,30 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
           top: 0;
         }
       }
+      .markdown-prefix {
+        color: var(--accent);
+        margin-right: 0.5rem;
+        font-weight: normal;
+      }
+      h3 {
+        font-size: 2.3rem;
+        opacity: 0.85;
+      }
+      .dotted-separator {
+        border: none;
+        border-top: 1px dotted var(--accent-200, #008080);
+        margin: 4rem 0;
+        height: 0;
+        /* Increase gap between dots */
+        border-top-style: dotted;
+        border-top-width: 1px;
+        border-top-color: var(--accent-200, #008080);
+        border-image: repeating-linear-gradient(
+          to right,
+          var(--accent-400, #008080) 0 8px,
+          transparent 8px 14px
+        ) 100% 1;
+      }
     </style>
   </head>
   <body>
@@ -122,43 +148,58 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
           class="size-14 xl:size-20 inline-block"
           alt="8th Note"
         /> -->
-        <h2 class="name-heading inline-block text-4xl">Hi, I am Akshat.</h2>
+        <h2 class="name-heading inline-block">Hi, I am Akshat Oke.</h2>
       </div>
 
       <p style="font-family: 'Fira Mono';">
         <span class="inline-block animate-pulse">&gt;</span>
         I explore compilers and the web of ideas.
       </p>
-      <p>Currently working at AMD on the AMDGPU Compiler.</p>
+      <p style="color: var(--syntax-function)"><i class="fa-solid fa-location-dot"></i>Joining Georgia Tech in Fall 2025.</p>
       <p>
         I play the piano (regularly) and badminton (not so regularly anymore).
         <br />
         <!-- Used to write stories on Wattpad. -->
       </p>
-      <br />
-      <h4 class="inline-block">Life Events</h4>
+      <!-- <h4 class="inline-block">Life Events</h4> -->
+      <hr class="dotted-separator" />
+      <h3 class="inline-block"><span class="markdown-prefix">#</span>Log</h3>
       <ul class="list">
         <li>
           <a
-            href="https://www.cse.iitb.ac.in/~plato/PLACID/index.html"
+            href="./blog/iit-placid-2025"
             target="_blank">PLACID 2025</a
           >
         </li>
         <p>
           29th March, 2025<br />
-          I presented as an AMD delegate at PLACID 2025, held at IIT Bombay! I am
-          writing an account of this <a href="./blog/iit-placid-2025"
-            >experience here.</a
-          >
+
+          I presented as an AMD delegate at <a href="https://www.cse.iitb.ac.in/~plato/PLACID/index.html">PLACID 2025, held at IIT Bombay!</a> I am
+          writing an account of this experience here.
         </p>
       </ul>
-      <h3 class="inline-block">Projects</h3>
+      <hr class="dotted-separator" />
+      <h3 class="inline-block"><span class="markdown-prefix">#</span>Projects</h3>
       <p>
         Till I enumerate some of my projects here, take a look at my <a
           href="https://github.com/optimisan"
           target="_blank">GitHub</a
         >.
       </p>
+      <hr class="dotted-separator" />
+      <h3 class="inline-block"><span class="markdown-prefix">#</span>Experience</h3>
+      <ExperienceCard
+        company="AMD"
+        duration="July 2024 - July 2025"
+        description="Worked in the AMDGPU Compiler team on the LLVM pass manager."
+        current={false}
+      />
+      <ExperienceCard
+        company="BITS Pilani, Hyderabad Campus"
+        role="Bachelor of Computer Science, Gold Medalist"
+        duration="2020-2024"
+        description="My undergraduate is from BITS Hyderabad, where I was awarded the gold medal for being the class topper. My CGPA was 9.75. I did a minor in Data Science too."
+      />
     </main>
     <!-- <Footer /> -->
   </body>

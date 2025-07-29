@@ -1,0 +1,97 @@
+---
+export interface Props {
+  company: string;
+  role?: string;
+  duration: string;
+  description: string;
+  current?: boolean;
+}
+
+const { company, role, duration, description, current = false } = Astro.props;
+---
+
+<style>
+  .experience-card {
+    border: 1px dotted var(--text-muted);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+    background: var(--background);
+  }
+  
+  .experience-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .company-name {
+    color: var(--accent);
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .current-badge {
+    background: var(--accent);
+    color: var(--background);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .role {
+    color: var(--text);
+    font-size: 0.95em;
+    margin: 0.25rem 0;
+    font-style: italic;
+  }
+  
+  .duration {
+    color: var(--text-soft);
+    font-size: 0.85em;
+    margin-bottom: 0.75rem;
+    font-family: "Fira Mono", monospace;
+  }
+  
+  .description {
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .company-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .current-badge {
+      align-self: flex-start;
+    }
+  }
+</style>
+
+<div class="experience-card">
+  <div class="company-header">
+    <h4 class="company-name">{company}</h4>
+    {current && <span class="current-badge">Current</span>}
+  </div>
+  
+  {role && <p class="role">{role}</p>}
+  
+  <p class="duration">{duration}</p>
+  
+  <p class="description">{description}</p>
+</div>
